@@ -1,0 +1,768 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<title>Fidelity ARD Interview Prep · Sahil Sareen</title>
+<style>
+:root{
+  --ink:#10221c;
+  --ink-soft:#2c4a40;
+  --paper:#f4f0e6;
+  --paper-deep:#e9e3d3;
+  --card:#fbf8f0;
+  --green:#1a7a4c;
+  --green-deep:#0f5435;
+  --green-glow:#2bd07f;
+  --gold:#c79a3a;
+  --rust:#b5482e;
+  --line:#d8d0bc;
+  --muted:#6b7a72;
+  --shadow:0 18px 40px -20px rgba(16,34,28,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:"Spectral","Iowan Old Style",Georgia,serif;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, #1d3a30 0%, transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, #16302700 0%, transparent 55%),
+    var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:880px;margin:0 auto;padding:28px 20px 90px}
+
+/* ---------- HEADER ---------- */
+header.masthead{
+  border:1px solid var(--line);
+  background:linear-gradient(160deg,#11271f 0%, #16382a 55%, #0e2019 100%);
+  color:#f4f0e6;
+  border-radius:18px;
+  padding:30px 30px 26px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+header.masthead::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, transparent 2px 9px);
+  mix-blend-mode:overlay;
+}
+.kicker{
+  font-family:"Söhne","Helvetica Neue",Arial,sans-serif;
+  text-transform:uppercase;letter-spacing:.32em;font-size:11px;font-weight:600;
+  color:var(--green-glow);
+  display:flex;align-items:center;gap:10px;
+}
+.kicker::before{content:"";width:26px;height:1px;background:var(--green-glow);display:inline-block}
+h1{
+  font-size:clamp(28px,5.5vw,44px);line-height:1.04;font-weight:800;
+  margin:14px 0 6px;letter-spacing:-.01em;
+}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{font-family:"Söhne","Helvetica Neue",Arial,sans-serif;font-size:14.5px;color:#cdd9d1;max-width:60ch}
+.meta-row{
+  display:flex;flex-wrap:wrap;gap:18px;margin-top:20px;
+  font-family:"Söhne","Helvetica Neue",Arial,sans-serif;font-size:12.5px;color:#b9c8bf
+}
+.meta-row b{color:#f4f0e6;font-weight:600}
+
+/* ---------- PROGRESS / STATS ---------- */
+.statbar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px
+}
+.stat{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  border-radius:11px;padding:11px 12px;text-align:center
+}
+.stat .n{font-size:22px;font-weight:800;color:#fff;font-family:"Söhne",sans-serif}
+.stat .l{font-family:"Söhne",sans-serif;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#a9bbb1;margin-top:2px}
+.stat.score .n{color:var(--green-glow)}
+
+.progress-shell{height:7px;background:rgba(255,255,255,.12);border-radius:99px;margin-top:18px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--green-glow));border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+
+/* ---------- FILTER PILLS ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 6px}
+.pill{
+  font-family:"Söhne","Helvetica Neue",Arial,sans-serif;font-size:12px;font-weight:500;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+  padding:7px 14px;border-radius:99px;cursor:pointer;transition:.18s;letter-spacing:.01em;
+  white-space:nowrap
+}
+.pill:hover{border-color:var(--green);color:var(--green-deep)}
+.pill.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pill .c{opacity:.55;font-variant-numeric:tabular-nums;margin-left:5px}
+
+/* ---------- CARD ---------- */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:30px;margin-top:18px;box-shadow:var(--shadow);position:relative
+}
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}
+.tag{
+  font-family:"Söhne",sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--green-deep);
+  background:rgba(26,122,76,.1);border:1px solid rgba(26,122,76,.25);
+  padding:5px 11px;border-radius:7px
+}
+.qnum{font-family:"Söhne",sans-serif;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.qtext{font-size:clamp(19px,3.4vw,24px);line-height:1.3;font-weight:700;letter-spacing:-.005em;color:var(--ink)}
+
+.options{margin-top:22px;display:flex;flex-direction:column;gap:11px}
+.opt{
+  display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;
+  background:#fff;border:1.5px solid var(--line);border-radius:12px;
+  padding:15px 16px;cursor:pointer;transition:.16s;font-family:"Söhne","Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.45;color:var(--ink-soft)
+}
+.opt:hover:not(:disabled){border-color:var(--green);background:#fdfdf8;transform:translateY(-1px)}
+.opt:disabled{cursor:default}
+.opt .letter{
+  flex:none;width:26px;height:26px;border-radius:7px;border:1.5px solid var(--line);
+  display:grid;place-items:center;font-weight:700;font-size:13px;color:var(--muted);transition:.16s
+}
+.opt.correct{border-color:var(--green);background:linear-gradient(180deg,#eef8f1,#e3f3e9)}
+.opt.correct .letter{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--rust);background:#fbeee9}
+.opt.wrong .letter{background:var(--rust);border-color:var(--rust);color:#fff}
+.opt.dim{opacity:.5}
+.opt .mark{margin-left:auto;flex:none;font-weight:700;font-size:13px}
+.opt.correct .mark{color:var(--green-deep)}
+.opt.wrong .mark{color:var(--rust)}
+
+/* ---------- REVEAL ---------- */
+.reveal{margin-top:22px;display:none;animation:rise .45s cubic-bezier(.2,.8,.2,1)}
+.reveal.show{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.verdict{
+  font-family:"Söhne",sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;
+  display:flex;align-items:center;gap:9px;padding:12px 15px;border-radius:11px;margin-bottom:16px
+}
+.verdict.good{background:rgba(26,122,76,.12);color:var(--green-deep)}
+.verdict.bad{background:rgba(181,72,46,.1);color:var(--rust)}
+.verdict .dot{width:9px;height:9px;border-radius:99px;background:currentColor}
+
+.block{border-left:3px solid var(--line);padding:2px 0 2px 18px;margin:18px 0}
+.block h4{
+  font-family:"Söhne",sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px
+}
+.block.why{border-color:var(--green)}
+.block.why h4{color:var(--green-deep)}
+.block.deliver{border-color:var(--gold)}
+.block.deliver h4{color:#9a7320}
+.block p{font-size:15.5px;line-height:1.62;color:var(--ink-soft)}
+.block .ico{font-size:14px}
+
+/* ---------- NAV ---------- */
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:26px}
+.btn{
+  font-family:"Söhne","Helvetica Neue",Arial,sans-serif;font-size:14px;font-weight:600;
+  border-radius:11px;padding:13px 22px;cursor:pointer;border:1.5px solid var(--ink);
+  transition:.16s;letter-spacing:.01em
+}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 10px 24px -10px rgba(26,122,76,.7)}
+.btn.primary:hover{background:var(--green-deep);border-color:var(--green-deep)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.primary:disabled{box-shadow:none}
+
+/* ---------- DONE SCREEN ---------- */
+.done{text-align:center;padding:46px 26px}
+.done .big{font-size:clamp(40px,9vw,72px);font-weight:800;color:var(--green-deep);line-height:1;letter-spacing:-.02em}
+.done .big em{font-style:normal;color:var(--gold)}
+.done p{font-family:"Söhne",sans-serif;color:var(--ink-soft);max-width:48ch;margin:14px auto 0;font-size:15px}
+.done .msg{font-size:21px;font-weight:700;margin-top:18px;font-family:"Spectral",serif}
+
+footer{font-family:"Söhne",sans-serif;text-align:center;color:var(--muted);font-size:12px;margin-top:34px;line-height:1.7}
+footer a{color:var(--green-deep)}
+
+@media (max-width:560px){
+  .wrap{padding:16px 13px 70px}
+  header.masthead{padding:24px 20px}
+  .card{padding:22px 18px}
+  .statbar{grid-template-columns:repeat(2,1fr)}
+  .nav{flex-direction:column-reverse}
+  .btn{width:100%}
+  .opt{font-size:14.5px}
+}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Interview War Room · Fidelity ARD</div>
+    <h1>Analyst, <em>Data Analytics &amp; Insights</em></h1>
+    <div class="sub">A complete, interactive question bank — behavioral, technical, situational &amp; culture-fit — with model answers tailored to your resume and coaching on how to deliver each one out loud.</div>
+    <div class="meta-row">
+      <span><b>Candidate</b> · Sahil Sareen</span>
+      <span><b>Team</b> · Analytics, Research &amp; Data</span>
+      <span><b>Questions</b> · <span id="qtotal">0</span></span>
+    </div>
+    <div class="statbar">
+      <div class="stat"><div class="n" id="s-answered">0</div><div class="l">Answered</div></div>
+      <div class="stat score"><div class="n" id="s-correct">0</div><div class="l">Correct</div></div>
+      <div class="stat"><div class="n" id="s-rate">—</div><div class="l">Hit Rate</div></div>
+      <div class="stat"><div class="n" id="s-left">0</div><div class="l">Remaining</div></div>
+    </div>
+    <div class="progress-shell"><div class="progress-fill" id="prog"></div></div>
+  </header>
+
+  <div class="filters" id="filters"></div>
+
+  <div id="stage"></div>
+
+  <footer>
+    Built as a personal interview-prep tool · model answers are starting points — make them yours, in your own voice.<br>
+    Resume facts drawn from your CV; verify any company specifics against current Fidelity sources before interview day.
+  </footer>
+</div>
+
+<script>
+// ============================================================
+// FIDELITY ARD — Analyst, Data Analytics & Insights
+// Interview Prep Question Bank — tailored to Sahil Sareen
+// ============================================================
+const QUESTION_BANK = [
+
+// ---------- SECTION 1: COMPANY / CULTURE-FIT ----------
+{
+  category: "Culture Fit",
+  q: "“Why Fidelity, and why this role on the Analytics, Research & Data (ARD) team?”",
+  options: [
+    "Fidelity is a large, stable company and the compensation is competitive.",
+    "I want to move from data engineering into pure analytics, and Fidelity happens to have an opening.",
+    "ARD is built to anticipate client needs and predict behavior through data — that maps directly to what I already do: turning complex datasets into decisions that leadership acts on. I want to apply that in financial services where insight ownership, not just pipelines, is the product.",
+    "Fidelity uses Snowflake and Tableau, which are the exact tools I know, so it would be an easy transition."
+  ],
+  correct: 2,
+  explanation: "The strongest answer ties the company's actual mission to your demonstrated value. ARD's charter is anticipating client needs and shaping future behavior through data and AI. You connect that to your track record of turning complex pharma datasets into narratives that 'informed senior-leadership strategy' — and frame the move as deepening ownership of the *insight*, not just the data plumbing. Options A and D are true but transactional (any candidate could say them); B frames your engineering background as something you're escaping rather than an asset.",
+  delivery: "Keep it to ~45 seconds. Lead with the mission-to-impact link, then one concrete proof point (the exec dashboards that shaped leadership strategy), then close on why financial services specifically. Show you've read about ARD by name — most candidates only say 'Fidelity.' Sound genuinely curious, not rehearsed."
+},
+{
+  category: "Culture Fit",
+  q: "Fidelity describes its core behaviours as Brave, Bold, and Curious, anchored on Integrity and Trust. “Tell me about a time you were curious and it changed an outcome.”",
+  options: [
+    "I always read documentation thoroughly before starting any task.",
+    "On a 31-step forecasting pipeline running 6–8 hours, I wasn't satisfied with 'it's just slow.' I profiled each step, questioned why we used a full-refresh pattern, and rebuilt it as incremental sync — bringing runtime to ~1 hour. The curiosity was refusing to accept the inherited design.",
+    "I once asked my manager a lot of questions about a project until I understood it.",
+    "I read industry blogs every week to stay current on data trends."
+  ],
+  correct: 1,
+  explanation: "Curiosity in a behavioural answer must produce a measurable outcome, not just describe a habit. The pipeline-optimization story shows curiosity as a *driver of action*: you interrogated an inherited design others accepted, formed a hypothesis, and delivered a 6–8x runtime improvement. Options A, C, and D describe traits or routines with no result attached — they tell, they don't show.",
+  delivery: "Use STAR but compress Situation/Task to two sentences and spend 60% on Action. Name the specific thing you questioned ('why full-refresh across ~95 datasets?') — specificity signals real curiosity. End on the quantified result and, ideally, what it unlocked for the team (faster iteration, fresher data for stakeholders)."
+},
+{
+  category: "Culture Fit",
+  q: "“Fidelity puts the customer first. As an analyst far from the end client, how do you keep the customer in mind?”",
+  options: [
+    "I focus on writing clean, efficient code and trust that the business team handles the customer.",
+    "Even working on back-end pharma datasets, I framed every dashboard around the decision a stakeholder needed to make — because that decision ultimately affects a patient or a customer. I treat the internal stakeholder as my customer and design for their 'so what,' which keeps the chain back to the real client intact.",
+    "I attend customer feedback sessions whenever they are scheduled.",
+    "Customer focus is mainly the responsibility of the front-office and sales teams, not analytics."
+  ],
+  correct: 1,
+  explanation: "The interviewer is testing whether customer-centricity survives technical distance. The best answer reframes 'customer first' into something an analyst controls: designing every deliverable around the decision-maker's need and the downstream client impact. It shows ownership and systems thinking. A and D effectively disown customer responsibility — a red flag for a customer-first culture. C is passive.",
+  delivery: "Make the abstract concrete: pick one dashboard you built and state the decision it drove and who it ultimately served. Avoid sounding like you're reciting a value statement — show the mindset through a real example. Tie it to ARD's stated goal of enhancing client experiences."
+},
+{
+  category: "Culture Fit",
+  q: "“Where do you see yourself in three to five years, and how does this role fit?”",
+  options: [
+    "I'd like to move into management as quickly as possible.",
+    "Honestly, I'm keeping my options open and will see what comes up.",
+    "I want to become the analyst leadership turns to for the hard 'why' and 'what if' questions in a domain — deepening from engineering pipelines into owning insight end to end. This role is the right next step because ARD is explicitly about anticipating behavior, which is exactly the muscle I want to build.",
+    "I plan to eventually start my own data consultancy."
+  ],
+  correct: 2,
+  explanation: "Good answers show ambition that compounds *inside* the role, not away from it. The chosen answer signals growth (engineering → owned insight), names the specific capability the role builds, and reassures the interviewer you'll stay engaged. A reads as impatient; B reads as uncommitted; D signals you'll leave. Note the honest framing of your engineering-to-analytics trajectory — interviewers respect a candid, intentional career narrative.",
+  delivery: "Show direction without rigidity. It's fine to acknowledge you're transitioning deeper into analytics — frame it as deliberate, not uncertain. Connect your 3–5 year aim back to value for Fidelity (becoming a go-to insight owner), so your ambition reads as aligned, not self-serving."
+},
+
+// ---------- SECTION 2: BEHAVIORAL ----------
+{
+  category: "Behavioral",
+  q: "“Tell me about yourself.” (the opener)",
+  options: [
+    "A full chronological walk from your B.Tech through every project on the resume.",
+    "A tight 60–90s arc: data engineer with 3 years building production pipelines and executive dashboards on Snowflake/Tableau for a Fortune 50 pharma client; a signature win (6–8 hrs → ~1 hr forecasting pipeline); and why you're now drawn to an insight-ownership role at Fidelity's ARD.",
+    "A summary of your technical skills list, tool by tool.",
+    "A personal story about why you got into data, starting in childhood."
+  ],
+  correct: 1,
+  explanation: "The opener sets the frame for the whole interview. The winning structure is Present → Proof → Why-here: who you are now, one memorable quantified achievement, and a forward hook to this role. A is a chronology that buries the lede; C is a feature list with no narrative; D is off-target for a professional screen. The chosen answer is concise, evidence-led, and ends pointing at Fidelity.",
+  delivery: "Rehearse this to ~75 seconds — it's the one answer you can fully script. End on a forward-looking sentence ('…which is exactly why this ARD role caught my attention') so you hand the interviewer a natural next question. Vary your pace; land the metric ('six-to-eight hours down to about one') as the memorable beat."
+},
+{
+  category: "Behavioral",
+  q: "“Tell me about a time you disagreed with a stakeholder or senior colleague.”",
+  options: [
+    "I deferred to them because they were more senior and it wasn't worth the conflict.",
+    "During UAT as the technical SME, a stakeholder pushed for a metric definition I believed would misstate payer performance. I didn't just say no — I pulled the data both ways, showed the discrepancy in a quick walkthrough, and let the numbers make the case. We aligned on the corrected definition, and it built trust for later asks.",
+    "I escalated it to my manager immediately and let them resolve it.",
+    "I implemented what they asked but documented my objection so I'd be covered later."
+  ],
+  correct: 1,
+  explanation: "Interviewers want disagreement handled with evidence and maturity — not avoidance, not escalation reflex, not passive compliance. The chosen answer shows you held a principled position, made it about data rather than ego, and preserved the relationship (Integrity + Trust in Fidelity's terms). A and D avoid the disagreement; C outsources it. Your real SME-during-UAT experience makes this credible and specific.",
+  delivery: "Emphasise *how* you disagreed: data-first, low-ego, framed as a shared goal of getting the number right. Name the positive relationship outcome at the end — interviewers care as much about the aftermath as the conflict. Keep the stakeholder anonymous and respectful; never bad-mouth anyone."
+},
+{
+  category: "Behavioral",
+  q: "“Tell me about a time you failed or made a significant mistake.”",
+  options: [
+    "I honestly can't think of a real failure; I'm quite careful.",
+    "Early on I shipped a pipeline change without fully validating an edge case in returns data, and a downstream KPI was briefly wrong. I owned it immediately, traced the root cause, added a validation/QC check to catch that class of error, and the framework has caught issues since. The fix outlived the mistake.",
+    "A teammate's code broke my pipeline once, which made me look bad.",
+    "I once missed a deadline because the requirements kept changing."
+  ],
+  correct: 1,
+  explanation: "A strong failure answer requires real ownership and a systemic fix. The chosen answer admits a genuine, bounded mistake, shows immediate accountability, and — crucially — converts it into a durable improvement (a reusable validation check). A is a non-answer that signals low self-awareness; C blames a teammate; D blames external factors. The 'fix outlived the mistake' framing turns a failure into evidence of growth.",
+  delivery: "Pick a real but contained mistake — not a catastrophe, not a humble-brag. Spend most of the time on the response and the lasting safeguard, not the error itself. Show zero defensiveness. This is one of the highest-signal behavioural questions; a clean ownership story is disproportionately persuasive."
+},
+{
+  category: "Behavioral",
+  q: "“Describe a time you had to juggle multiple priorities under a tight deadline.”",
+  options: [
+    "I just work longer hours until everything is done.",
+    "I take tasks first-come-first-served so nobody feels deprioritised.",
+    "Running a 31-step production pipeline plus dashboard delivery in a Scrum cadence, I triaged by business impact and dependency: I protected the critical-path items stakeholders needed for a decision, communicated revised timelines early on the rest, and used the config-driven framework to parallelise low-risk work. Nothing critical slipped.",
+    "I ask my manager to decide what I should work on first."
+  ],
+  correct: 2,
+  explanation: "Prioritisation answers should reveal a *method*, not heroics. The chosen answer shows an impact-and-dependency triage, proactive stakeholder communication, and leverage (reusing your config-driven framework to move faster) — all directly from your experience. A ('work longer') doesn't scale; B is naive; D abdicates judgment. The explicit 'communicated early' beat matters: Fidelity prizes clear communication.",
+  delivery: "Name your triage criteria out loud (business impact, dependencies, reversibility). Interviewers are listening for a repeatable framework they can trust on day one. Mention the proactive comms — over-communicating on shifting timelines is a sign of seniority."
+},
+{
+  category: "Behavioral",
+  q: "“Tell me about a time you influenced a decision without having authority.”",
+  options: [
+    "I made the change myself quietly and showed people afterward.",
+    "I built a clear, executive-ready Tableau view that made the trade-off obvious — once leadership could *see* the pattern in the patient and commercial data, the recommendation became hard to argue with. I let a well-designed visualization carry the influence I didn't have by title.",
+    "I kept repeating my opinion in meetings until people agreed.",
+    "I waited for someone senior to propose the same idea."
+  ],
+  correct: 1,
+  explanation: "Influence-without-authority is a core analyst competency and maps to Fidelity's 'tell impactful data stories' requirement. The chosen answer shows influence through *clarity of insight* — turning a complex dataset into a self-evident decision — which is exactly the storytelling skill the JD names. A is sneaky; C is force, not influence; D is passive. This answer doubles as proof of your data-storytelling strength.",
+  delivery: "Frame the visualization as the persuasion mechanism — 'I let the data make the argument.' This signals you understand that good analytics *is* influence. Close with the decision that resulted. It's a chance to show both EQ and your dashboard-design credential at once."
+},
+
+// ---------- SECTION 3: TECHNICAL — SQL / SNOWFLAKE ----------
+{
+  category: "Technical · SQL",
+  q: "You need each row to show a value alongside an aggregate over its group (e.g., each transaction next to that customer's running total) without collapsing rows. What's the right tool?",
+  options: [
+    "GROUP BY with an aggregate function",
+    "A window function with OVER(PARTITION BY ... ORDER BY ...)",
+    "A self-join on the customer key",
+    "A correlated subquery in the SELECT for every row"
+  ],
+  correct: 1,
+  explanation: "Window functions compute an aggregate across a set of rows *related to the current row* while preserving every row — exactly the 'value next to its group aggregate' need. GROUP BY collapses rows, defeating the purpose. A self-join or per-row correlated subquery can produce the same numbers but scan far more and scale poorly — precisely the anti-pattern you'd flag given your runtime-optimization work. This is squarely in your wheelhouse: window functions were central to the pipeline you took from 6–8 hrs to ~1 hr.",
+  delivery: "Don't just name the function — show judgment. Mention that you'd reach for a window function specifically to *avoid* the self-join/subquery scan cost, and connect it to a real optimization you did. Interviewers separate people who know syntax from people who know *why*; lead with the why."
+},
+{
+  category: "Technical · SQL",
+  q: "What is the practical difference between a CTE and a subquery, and when do you prefer a CTE?",
+  options: [
+    "CTEs are always faster than subqueries because they are materialized.",
+    "There is no real difference; they are interchangeable in every case.",
+    "A CTE (WITH clause) names an intermediate result for readability and reuse within one query — preferred when logic is multi-step, referenced more than once, or recursive; a subquery is inline and fine for simple, single-use logic. Performance is usually similar; CTEs win on maintainability and debuggability.",
+    "Subqueries can be reused across multiple queries while CTEs cannot."
+  ],
+  correct: 2,
+  explanation: "The correct framing is readability/reuse, not a blanket performance claim. A CTE shines for multi-step transformations, when the same intermediate set is referenced multiple times, or for recursion; a subquery is fine for simple one-off logic. Beware A — whether a CTE is materialized is engine-dependent (in some engines CTEs are inlined, not materialized), so claiming 'always faster' is wrong and a common trap. B and D are factually incorrect.",
+  delivery: "Show nuance by explicitly rejecting the 'CTEs are always faster' myth — that single sentence signals senior-level understanding. Tie it to your real work: complex KPI computation reads far more cleanly as stacked CTEs, which matters when you're optimizing and debugging a 31-step pipeline."
+},
+{
+  category: "Technical · SQL",
+  q: "A query joining a large fact table to several dimensions is slow. Walk through how you'd diagnose and optimize it.",
+  options: [
+    "Add LIMIT to the query so it returns faster.",
+    "Read the query/execution plan to find the expensive operators; check join keys and cardinality; filter/prune early to shrink scanned data; verify join order and avoid exploding many-to-many joins; in Snowflake, lean on pruning/clustering and right-size the warehouse; then re-measure.",
+    "Rewrite every join as a correlated subquery.",
+    "Increase the warehouse to the largest size and move on."
+  ],
+  correct: 1,
+  explanation: "Optimization is a methodical diagnosis, not a single trick. The correct answer follows the real loop: read the plan → find the costly operator → reduce data scanned (early filtering, partition/cluster pruning) → fix join cardinality and order → use engine features (Snowflake micro-partition pruning, clustering keys, warehouse sizing) → re-measure. A just hides the problem; C usually makes it worse; D throws money/compute at it without understanding the cause — the opposite of how you achieved your 6–8x gain.",
+  delivery: "This is your strongest technical territory — narrate it as the exact process behind your forecasting-pipeline win. Emphasise 'measure, change one thing, re-measure.' Mention you always start from the plan, not from guessing. Concrete levers (early filtering, join tuning, clustering) plus a real result is what lands."
+},
+{
+  category: "Technical · SQL",
+  q: "Write the logic to return the most recent transaction per customer. Which approach is cleanest and correct?",
+  options: [
+    "SELECT customer_id, MAX(txn_date) GROUP BY customer_id — then you have the full row.",
+    "ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY txn_date DESC) in a CTE, then filter WHERE rn = 1.",
+    "ORDER BY txn_date DESC LIMIT 1 for the whole table.",
+    "SELECT DISTINCT customer_id, txn_date ORDER BY txn_date."
+  ],
+  correct: 1,
+  explanation: "ROW_NUMBER() partitioned by customer and ordered by date descending, filtered to rn = 1, returns the *entire* latest row per customer and cleanly handles the 'top-N-per-group' pattern. A only gives the max date, not the rest of that row (and needs a re-join). C returns one row for the whole table, not per customer. D doesn't isolate the latest per customer. Note: if ties matter, you'd choose RANK/QUALIFY accordingly — worth mentioning.",
+  delivery: "In Snowflake specifically, show off by mentioning the QUALIFY clause — `QUALIFY ROW_NUMBER() OVER (...) = 1` — which avoids the wrapping subquery entirely. That's a Snowflake-native touch that signals real platform fluency, which the JD explicitly asks for. Mention the tie-handling choice (ROW_NUMBER vs RANK) to show edge-case awareness."
+},
+{
+  category: "Technical · SQL",
+  q: "INNER JOIN vs LEFT JOIN — when does the choice change your *numbers*, not just your rows?",
+  options: [
+    "They always return the same result, so it doesn't matter.",
+    "INNER JOIN keeps only matched rows; LEFT JOIN keeps all left rows with NULLs for non-matches. The choice changes counts/sums whenever the base universe must be preserved — e.g., reporting all HCPs including those with zero engagement; an INNER JOIN silently drops the zeros and overstates averages.",
+    "LEFT JOIN is just a slower INNER JOIN with the same output.",
+    "INNER JOIN should always be used because it is faster."
+  ],
+  correct: 1,
+  explanation: "The high-signal point is the *analytical consequence*: using INNER JOIN where you need the full base universe silently drops non-matching entities, biasing counts and averages upward. The example — all HCPs including zero-engagement ones — is exactly the kind of KPI subtlety you'd hit on patient/claims data. A and C are wrong; D ignores correctness for a marginal speed argument.",
+  delivery: "Don't just define the joins — every candidate can. Win the question by naming the *silent data bug*: 'the danger is an INNER JOIN quietly dropping the zeros and inflating your average.' Tie it to a metric you actually computed (HCP engagement) so it's concrete, not textbook."
+},
+{
+  category: "Technical · Snowflake",
+  q: "What makes Snowflake's architecture distinctive, and how does it shape how you'd build pipelines on it?",
+  options: [
+    "It's a traditional on-prem database you scale by buying bigger servers.",
+    "Separation of storage and compute: multiple independent virtual warehouses query the same data without contention, and it auto-handles micro-partitioning. Practically, you size compute per workload, isolate heavy ETL from BI queries, and design for pruning — which is how you keep cost and runtime down at scale.",
+    "It only works with semi-structured JSON data.",
+    "It requires you to manually manage indexes like a classic RDBMS."
+  ],
+  correct: 1,
+  explanation: "Snowflake's defining trait is decoupled storage and compute with independently scalable virtual warehouses over shared data, plus automatic micro-partitioning (no manual indexes). The practical implications — isolating ETL from BI, sizing per workload, designing for partition pruning/clustering — are what an analytics engineer leverages for cost and speed. A, C, and D describe systems Snowflake specifically isn't.",
+  delivery: "Connect architecture to a decision you'd actually make: 'because compute is isolated, I'd run heavy incremental loads on one warehouse so they never slow down stakeholders' BI queries.' Linking a feature to an operational choice — and to your S3→Snowflake incremental-sync framework across ~95 datasets — shows you've run it in production, not just read the docs."
+},
+{
+  category: "Technical · Snowflake",
+  q: "You designed an incremental-sync framework to replace full-refresh loads. Why is that better, and what's the main risk to manage?",
+  options: [
+    "Incremental is better only because it looks more modern.",
+    "Incremental loads process only new/changed records, cutting runtime and compute cost versus reprocessing everything daily. The main risk is correctness — missed updates/deletes or late-arriving data can cause drift — so you need reliable change detection (CDC/watermarks), idempotent merges, and periodic reconciliation against the source.",
+    "Full-refresh is always safer, so incremental should be avoided in production.",
+    "Incremental loads remove the need for any data validation."
+  ],
+  correct: 1,
+  explanation: "Incremental sync's benefit is processing only deltas (lower runtime/cost), but its real engineering substance is *managing correctness risk*: change detection, idempotent MERGE logic, handling deletes and late-arriving data, and reconciliation. The chosen answer names both sides. A is shallow; C is wrong; D is dangerously wrong — incremental designs need *more* validation discipline, not less.",
+  delivery: "This is straight from your resume — own it confidently and go one level deeper than the interviewer expects by volunteering the risk and your mitigation. Saying 'the hard part isn't the speed-up, it's guaranteeing I didn't silently miss a changed record' shows production maturity and pairs perfectly with your data-validation/QC experience."
+},
+
+// ---------- SECTION 4: TECHNICAL — VIZ / DASHBOARDING / STORYTELLING ----------
+{
+  category: "Technical · Dashboards",
+  q: "What separates an executive-ready dashboard from a generic one?",
+  options: [
+    "Using as many charts and KPIs as possible so nothing is left out.",
+    "It answers a specific decision the executive faces: a clear top-line message, the few KPIs that matter, supporting detail one layer down, and a visual hierarchy that surfaces the 'so what' in seconds. Restraint and narrative beat completeness.",
+    "Bright colors and 3D charts to make it visually impressive.",
+    "Exposing the raw data tables so executives can explore everything themselves."
+  ],
+  correct: 1,
+  explanation: "Executive dashboards are decision tools, not data dumps. The hallmark is a clear top-line answer, a disciplined set of KPIs, drill-down for detail, and visual hierarchy that delivers the 'so what' fast — which is exactly the design-thinking/storytelling approach on your resume. A and D overwhelm; C confuses decoration with clarity (3D charts actively distort). The JD explicitly asks for 'compelling, executive-ready visualizations,' so this maps directly.",
+  delivery: "Use the word 'decision' early: 'I design backward from the decision the executive needs to make.' Then describe your hierarchy (headline → key KPIs → drill-down). Reference applying design-thinking to turn complex patient/commercial data into a clear narrative — it shows you already operate at the level the JD wants."
+},
+{
+  category: "Technical · Storytelling",
+  q: "“Walk me through how you'd tell a data story when the finding is bad news for the stakeholder.”",
+  options: [
+    "Soften the numbers so the stakeholder isn't alarmed.",
+    "Bury the bad result in an appendix and lead with positives.",
+    "Lead with the headline honestly, show the evidence clearly, explain the 'why' behind it, then pivot to the 'so what' and 'what if' — concrete options or recommended actions. Bad news lands well when it arrives with a clear cause and a path forward.",
+    "Present only the raw data and let the stakeholder draw conclusions."
+  ],
+  correct: 2,
+  explanation: "Fidelity's JD literally asks you to surface 'insights, opportunities, and risks' and address 'so what' and 'what if.' The right approach is honest headline → evidence → cause → recommended action. Integrity (a core Fidelity value) rules out A and B. D abdicates the analyst's job of interpretation. Pairing a hard truth with a path forward is what makes you trusted with the next hard question.",
+  delivery: "Stress that you never hide a bad finding — Integrity is a named Fidelity value, so this is a culture signal as much as a skill. Show the structure: headline, why, options. Mention that you'd pre-socialise a difficult finding with the stakeholder before a big meeting so they're not blindsided — that's senior-level stakeholder management."
+},
+{
+  category: "Technical · Dashboards",
+  q: "How do you choose which KPIs to put on a dashboard?",
+  options: [
+    "Include every metric the data team can calculate.",
+    "Pick whatever looks good visually.",
+    "Start from the business question and the decision it drives; choose metrics that are actionable, directly tied to that decision, and not redundant; distinguish leading from lagging indicators; and define each one precisely so it can't be misread. Fewer, well-defined KPIs beat a wall of numbers.",
+    "Use the same standard KPIs for every dashboard regardless of context."
+  ],
+  correct: 2,
+  explanation: "KPI selection is an act of editing driven by the decision at hand. The correct answer ties metrics to actions, avoids redundancy, separates leading vs lagging signals, and insists on precise definitions — echoing your KPI/metrics engineering experience. A and C ('every metric' / 'one-size-fits-all') ignore context; B is arbitrary. Precise definitions matter especially in finance/pharma where an ambiguous metric misleads leadership.",
+  delivery: "Emphasise definitional rigor — 'a KPI nobody can misinterpret.' Given your UAT/SME background where metric definitions were contested, you can credibly say you've seen the damage a fuzzy KPI does. Mention leading vs lagging indicators to show analytical depth beyond reporting."
+},
+
+// ---------- SECTION 5: SITUATIONAL / CASE ----------
+{
+  category: "Situational · Case",
+  q: "“A key metric — say daily active accounts — dropped 15% overnight. How do you investigate?”",
+  options: [
+    "Immediately tell leadership the product is failing and recommend a fix.",
+    "Wait a few days to see if it recovers on its own.",
+    "First rule out a data/instrumentation issue (pipeline failure, logging change, double-count). Then segment the drop — by region, platform, cohort, channel — to localize it. Form 2–3 hypotheses, test each against the data, separate one-off vs trend, and report the most likely cause with evidence and a recommended next step.",
+    "Run a regression on every available variable and see what's significant."
+  ],
+  correct: 2,
+  explanation: "This classic case tests structured problem-solving — Fidelity's 'critical thinking and structured problem-solving' requirement. The disciplined order is: (1) verify the metric is real (data issues cause most overnight 'drops'), (2) segment to localize, (3) hypothesize and test, (4) report cause + action. A jumps to conclusions; B is passive; D is an unstructured fishing expedition. Checking the pipeline first reflects your data-engineering instinct — a genuine edge here.",
+  delivery: "Say the data-quality check out loud first — 'before I alarm anyone, I confirm it's not a logging or pipeline artifact.' That single instinct, backed by your engineering background, sets you apart from analysts who'd chase a phantom drop. Then narrate the segment → hypothesize → test loop crisply. Think aloud; they're grading your structure, not a memorized answer."
+},
+{
+  category: "Situational · Case",
+  q: "“A stakeholder asks for a number you suspect they'll misinterpret or use to justify a decision the data doesn't support. What do you do?”",
+  options: [
+    "Give them exactly the number they asked for; interpretation is their job.",
+    "Refuse to provide the number.",
+    "Provide the number, but proactively add the context that prevents misreading — the caveat, the right denominator, the confounder — and offer the analysis that actually answers their underlying question. Deliver the data *and* protect the decision.",
+    "Quietly adjust the number so it can't be misused."
+  ],
+  correct: 2,
+  explanation: "This probes Integrity plus the analyst's duty to inform decisions, not just hand over figures. The right move is to supply the number with the context that prevents misuse and to reframe toward the real question — embodying both 'translate findings into actionable recommendations' and Fidelity's Integrity value. A is technically responsive but negligent; B is unhelpful; D (altering the number) is a fireable integrity breach.",
+  delivery: "Frame yourself as a steward of good decisions, not a number vending machine. Use a phrase like 'I'd give them the number and the one caveat that keeps it from being misread.' This shows ownership and judgment. If you have a real instance from UAT where you corrected a metric interpretation, anchor it there."
+},
+{
+  category: "Situational · Case",
+  q: "“You're given a vague business question: ‘Why are we losing customers?’ How do you turn it into something analyzable?”",
+  options: [
+    "Pull every customer table and start looking for anything interesting.",
+    "Ask the business to give you the exact query they want instead.",
+    "Translate it into testable hypotheses: define churn precisely, segment by tenure/product/channel, then frame candidate drivers (pricing, onboarding friction, service issues, competitor) as hypotheses you can validate with data or experiments — and prioritize by likely impact and testability.",
+    "Build a churn prediction model first and interpret it later."
+  ],
+  correct: 2,
+  explanation: "The JD specifically wants 'translating business questions into testable hypotheses.' The right path is define the metric (what is churn here?), segment, generate prioritized hypotheses, then validate via analysis or experimentation. A is unstructured exploration; B dodges the analyst's core value-add; D jumps to modeling before the question is even framed (and a black-box model won't explain 'why' cleanly).",
+  delivery: "Demonstrate the funnel from fuzzy to testable out loud — definition → segmentation → hypotheses → validation plan. Explicitly use the words 'testable hypotheses' since the JD does. Show you'd align with the stakeholder on the definition of churn first; that collaborative framing is a Fidelity cross-functional signal."
+},
+{
+  category: "Situational · Case",
+  q: "“How would you design an experiment to test whether a change actually improved an outcome?”",
+  options: [
+    "Roll the change out to everyone and compare this month to last month.",
+    "Define the hypothesis and a primary success metric; split into comparable treatment and control groups (randomized where possible); pre-compute the sample size needed; run long enough to be valid; then test for a statistically meaningful difference while watching guardrail metrics for side effects.",
+    "Ask stakeholders whether they feel the change helped.",
+    "Launch the change and look for any positive metric afterward to justify it."
+  ],
+  correct: 1,
+  explanation: "This tests experimentation literacy ('validating hypotheses through experimentation'). The rigorous answer covers hypothesis + primary metric, randomized comparable groups, pre-specified sample size, sufficient duration, significance testing, and guardrail metrics. A (before/after with no control) confounds seasonality/trend; C is anecdote; D is post-hoc cherry-picking — the classic way to fool yourself.",
+  delivery: "Even if your background is more engineering than experimentation, show you know the rigor: name 'control group,' 'pre-specified metric,' and 'guardrails.' Calling out the trap in option A — 'month-over-month isn't a real experiment because you can't separate the change from seasonality' — demonstrates the critical thinking the JD prizes. Be honest that you'd partner with the team on test design."
+},
+{
+  category: "Situational · Behavioral",
+  q: "“You have two days, incomplete data, and leadership needs a recommendation. How do you proceed?”",
+  options: [
+    "Refuse to give a recommendation until the data is complete.",
+    "Give your gut feeling without analysis since there's no time.",
+    "Scope to the decision actually needed, use the best available data while being explicit about its limitations and assumptions, give a clear directional recommendation with a confidence level, and state what you'd validate next if given more time. Decisiveness with transparency beats paralysis.",
+    "Spend both days trying to get the data perfect, then report you ran out of time."
+  ],
+  correct: 2,
+  explanation: "Real analytics happens under constraints. Fidelity wants someone who can 'recommend decisive actions.' The right answer balances decisiveness with intellectual honesty: scope tightly, state assumptions and limitations, give a directional call with a confidence level, and flag follow-ups. A and D let perfect kill good; B is reckless. Naming a confidence level is the mark of a mature analyst.",
+  delivery: "Lead with 'analysis is never perfectly clean, so I optimize for the decision.' Stress that you'd be explicit about confidence and assumptions — leadership trusts an analyst who says 'directionally X, medium confidence, here's what would change my mind' far more than false certainty. This shows the ownership mindset the JD calls out."
+},
+
+// ---------- SECTION 6: ROLE-SPECIFIC / GAP-BRIDGING ----------
+{
+  category: "Role Fit",
+  q: "“Your background is data engineering, but this is an analytics & insights role. Why are you the right fit?”",
+  options: [
+    "Engineering and analytics are basically the same thing.",
+    "I want to get away from engineering work, which I've grown tired of.",
+    "I already do both: I don't just build pipelines, I own them through to KPI reporting and storytelling dashboards that shaped senior-leadership strategy. The engineering depth is an advantage here — I can trust my own data, move faster from question to answer, and spot data-quality issues other analysts miss.",
+    "I'm willing to learn analytics on the job even though I haven't done it."
+  ],
+  correct: 2,
+  explanation: "This is the pivotal question for your candidacy — turn the apparent gap into a moat. The chosen answer shows you already operate across the stack (ingestion → KPI → storytelling) and reframes engineering depth as an *analytics advantage*: data you can trust, faster iteration, and a nose for data-quality issues. A flattens a real distinction; B sounds like flight, not pull; D concedes inexperience you don't actually have.",
+  delivery: "Prepare this answer cold — you will be asked some version of it. Never apologize for your background; sell it as rare. The line 'I can trust my own data and catch issues other analysts miss' is your differentiator. Then cite the resume evidence (dashboards informing leadership strategy) so it's a claim with proof, not a slogan."
+},
+{
+  category: "Role Fit",
+  q: "The role asks for 3.5+ years and a degree in Economics/Statistics/Finance (MBA/MS preferred). You have ~3 years and a CS degree. How do you handle this if raised?",
+  options: [
+    "Avoid the topic and hope they don't notice.",
+    "Argue that years and degrees don't matter at all.",
+    "Address it directly and confidently: my CS degree is a STEM field with heavy quantitative and statistical grounding, and in three years I've delivered the measurable business impact the role is really screening for — pipeline optimizations, exec dashboards that shaped strategy, and ownership end to end. I'd close any specific finance-domain gap quickly given my track record of ramping fast.",
+    "Offer to accept a lower title and salary to compensate."
+  ],
+  correct: 2,
+  explanation: "Requirements like these are usually proxies for capability, not hard gates. The right move is to meet it head-on: note CS is STEM with strong quant/stats foundations, and pivot to *evidence of impact* — which is what '3.5+ years delivering measurable business impact' is actually testing. A is evasive; B dismisses their criteria; D undersells you. Confidence plus proof reframes a paper gap into a non-issue.",
+  delivery: "Don't volunteer the gap unprompted, but if raised, answer without flinching. Acknowledge briefly, then redirect to impact within two sentences — interviewers care far more about what you've delivered than a half-year or a degree label. Project calm confidence; defensiveness here would do more damage than the gap itself."
+},
+{
+  category: "Role Fit",
+  q: "“What experience do you have with financial services data, given your background is pharma?”",
+  options: [
+    "None, so I'd be starting from zero.",
+    "Pharma and finance data are identical, so there's no learning curve.",
+    "I've worked extensively with finance datasets within the pharma engagement — shipments, returns, and finance data feeding commercial reporting — plus I built a multi-agent trading research system on Indian equities (NSE/BSE) and hold a Penn FinTech foundations certificate. The domain language differs, but the analytical patterns — KPIs, cohorts, time-series, governance — transfer directly.",
+    "I read financial news regularly so I understand the markets well."
+  ],
+  correct: 2,
+  explanation: "The best answer surfaces the genuine financial exposure you do have — finance datasets in the pharma engagement, the equities trading-research project, and the FinTech certificate — then argues that analytical patterns transfer even when domain vocabulary differs. A undersells real assets on your resume; B is naive about domain nuance; D mistakes consuming news for analytical experience.",
+  delivery: "Mine your resume for every finance touchpoint — the trading system and FinTech cert are genuine differentiators that most pharma-background candidates won't have, so name them. Then make the transferability case explicitly: 'a time-series KPI is a time-series KPI whether it's prescriptions or portfolio flows.' Show eagerness to learn Fidelity's specific domain."
+},
+{
+  category: "Role Fit",
+  q: "“Tell us about your GenAI / agentic work — and why does it matter for an analytics role?”",
+  options: [
+    "It's just a hobby and unrelated to this job.",
+    "AI will replace analysts, so I'm preparing for that.",
+    "I've built multi-agent GenAI systems — including PolicyPrism, a 7-stage extraction pipeline that turns payer policy PDFs into structured, auditable parameters on an 'LLM-extracts-evidence / Python-computes-rules' principle. For analytics, that's the future of ARD's AI-driven solutions: I can build trustworthy, explainable AI tooling that scales insight generation rather than producing black-box answers.",
+    "I use ChatGPT to write my SQL queries faster."
+  ],
+  correct: 2,
+  explanation: "ARD explicitly mentions 'AI-driven solutions,' so your GenAI work is a forward-looking asset. The chosen answer connects a concrete, sophisticated project (PolicyPrism's auditable, evidence-grounded design) to the role's future direction, emphasising *explainability and trust* — exactly what a regulated financial firm needs. A undersells it; B is off-putting; D trivializes it to a productivity hack.",
+  delivery: "Stress the *auditable / explainable* design philosophy — in financial services, a black-box AI answer is a liability, and your 'LLM extracts, Python computes the rules' principle shows you already think about governance. Keep it concise and business-framed; don't disappear into technical detail. Position it as 'where I can help ARD go,' not just something you've done."
+},
+{
+  category: "Role Fit",
+  q: "“Do you have any questions for us?” (closing)",
+  options: [
+    "No, I think you've covered everything.",
+    "Mostly logistics: salary, vacation days, and start date.",
+    "How does ARD measure whether an insight actually changed a business decision? / What does the path from analyst to a go-to insight owner look like here? / Which data or AI capability is the team most excited to build next? — questions about impact, growth, and the team's direction.",
+    "Is the work-from-home policy flexible?"
+  ],
+  correct: 2,
+  explanation: "Closing questions are an evaluated part of the interview. The strong set probes impact ('how do you measure insight → decision?'), your growth path, and the team's roadmap — signaling genuine engagement with ARD's mission. A wastes the chance and reads as disinterest; B and D lead with logistics, which is fine later but a weak first impression in an early round.",
+  delivery: "Prepare 4–5 questions and pick based on who's interviewing (technical lead vs hiring manager vs senior leader). Asking how they measure an insight's impact is memorable because it shows you think in outcomes, like they do. Save comp/logistics for the recruiter. End by reaffirming your interest in the role."
+}
+
+];
+
+
+let filter = "All";
+let idx = 0;            // index within current filtered list
+let order = [];         // filtered list of original indices
+const state = {};       // originalIndex -> {chosen, correct}
+
+const LETTERS = ["A","B","C","D","E"];
+const $ = s => document.querySelector(s);
+
+function categories(){
+  const counts = {All: QUESTION_BANK.length};
+  QUESTION_BANK.forEach(q=>{
+    const g = q.category.split(" · ")[0];
+    counts[g] = (counts[g]||0)+1;
+  });
+  return counts;
+}
+
+function buildFilters(){
+  const counts = categories();
+  const order2 = ["All","Culture Fit","Behavioral","Technical","Situational","Role Fit"];
+  const host = $("#filters"); host.innerHTML="";
+  order2.forEach(g=>{
+    if(counts[g]===undefined) return;
+    const b=document.createElement("button");
+    b.className="pill"+(filter===g?" active":"");
+    b.innerHTML = g + ' <span class="c">'+counts[g]+'</span>';
+    b.onclick=()=>{filter=g; idx=0; rebuild();};
+    host.appendChild(b);
+  });
+}
+
+function rebuild(){
+  order = QUESTION_BANK.map((q,i)=>i).filter(i=>{
+    if(filter==="All") return true;
+    return QUESTION_BANK[i].category.split(" · ")[0]===filter;
+  });
+  if(idx>=order.length) idx=0;
+  buildFilters();
+  render();
+  updateStats();
+}
+
+function updateStats(){
+  const answered = Object.keys(state).length;
+  const correct = Object.values(state).filter(s=>s.correct).length;
+  $("#qtotal").textContent = QUESTION_BANK.length;
+  $("#s-answered").textContent = answered;
+  $("#s-correct").textContent = correct;
+  $("#s-rate").textContent = answered? Math.round(correct/answered*100)+"%" : "—";
+  $("#s-left").textContent = QUESTION_BANK.length - answered;
+  $("#prog").style.width = (answered/QUESTION_BANK.length*100)+"%";
+}
+
+function render(){
+  const stage = $("#stage");
+  if(order.length===0){ stage.innerHTML=""; return; }
+  const oi = order[idx];
+  const q = QUESTION_BANK[oi];
+  const prev = state[oi];
+
+  const opts = q.options.map((txt,k)=>{
+    let cls="opt", mark="";
+    if(prev){
+      if(k===q.correct){cls+=" correct"; mark="✓ Best answer";}
+      else if(k===prev.chosen){cls+=" wrong"; mark="✕ Your pick";}
+      else cls+=" dim";
+    }
+    return `<button class="${cls}" ${prev?"disabled":""} data-k="${k}">
+        <span class="letter">${LETTERS[k]}</span>
+        <span>${txt}</span>
+        ${mark?`<span class="mark">${mark}</span>`:""}
+      </button>`;
+  }).join("");
+
+  const reveal = prev ? `
+    <div class="reveal show">
+      <div class="verdict ${prev.correct?"good":"bad"}">
+        <span class="dot"></span>
+        ${prev.correct
+          ? "Nailed it — that's the answer you want to give."
+          : "Not quite — here's the answer that lands better, and why."}
+      </div>
+      <div class="block why">
+        <h4><span class="ico">◆</span> Why this is the strongest answer</h4>
+        <p>${q.explanation}</p>
+      </div>
+      <div class="block deliver">
+        <h4><span class="ico">◆</span> How to deliver it in the room</h4>
+        <p>${q.delivery}</p>
+      </div>
+    </div>` : "";
+
+  stage.innerHTML = `
+    <div class="card">
+      <div class="qtop">
+        <span class="tag">${q.category}</span>
+        <span class="qnum">${idx+1} / ${order.length}</span>
+      </div>
+      <div class="qtext">${q.q}</div>
+      <div class="options">${opts}</div>
+      ${reveal}
+      <div class="nav">
+        <button class="btn ghost" id="back" ${idx===0?"disabled":""}>← Previous</button>
+        <button class="btn primary" id="next" ${idx>=order.length-1?"disabled":""}>
+          ${idx>=order.length-1 ? "Finish ✓" : "Next question →"}
+        </button>
+      </div>
+    </div>`;
+
+  stage.querySelectorAll(".opt").forEach(btn=>{
+    btn.onclick=()=>{
+      if(state[oi]) return;
+      const k=+btn.dataset.k;
+      state[oi]={chosen:k, correct:k===q.correct};
+      render(); updateStats();
+    };
+  });
+  $("#back").onclick=()=>{ if(idx>0){idx--; render();} };
+  $("#next").onclick=()=>{
+    if(idx<order.length-1){ idx++; render(); }
+    else { showDone(); }
+  };
+}
+
+function showDone(){
+  const answered = Object.keys(state).length;
+  const correct = Object.values(state).filter(s=>s.correct).length;
+  const rate = answered? Math.round(correct/answered*100):0;
+  let msg = "Keep drilling — review the explanations until each answer feels like your own.";
+  if(rate>=85) msg="You're interview-ready. Now practice saying these out loud, on the clock.";
+  else if(rate>=60) msg="Solid foundation. Tighten the misses and rehearse delivery.";
+  $("#stage").innerHTML = `
+    <div class="card done">
+      <div class="big">${rate}<em>%</em></div>
+      <div class="msg">${msg}</div>
+      <p>You answered <b>${answered}</b> of <b>${QUESTION_BANK.length}</b> questions and picked the strongest answer <b>${correct}</b> times. The score is just a warm-up signal — the real value is in the “why” and the delivery notes. Re-run any category from the filters above.</p>
+      <div class="nav" style="justify-content:center;margin-top:24px">
+        <button class="btn primary" id="again">Review again from the top ↻</button>
+      </div>
+    </div>`;
+  $("#prog").style.width="100%";
+  $("#again").onclick=()=>{ idx=0; render(); window.scrollTo({top:0,behavior:"smooth"}); };
+}
+
+rebuild();
+</script>

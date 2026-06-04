@@ -1,0 +1,54 @@
+SAHIL SAREEN
+Data Engineer / Analytics Engineer
+Email: sahil.sareen@example.com | Location: India | LinkedIn: /in/sahilsareen
+
+SUMMARY
+Data engineer with ~3 years of experience building and owning production data
+pipelines and executive analytics for a Fortune 50 pharmaceutical client. Strong
+across the full stack — ingestion, transformation, KPI/metrics engineering, and
+executive-ready dashboards that have informed senior-leadership strategy. Now
+focused on deepening from data engineering into end-to-end ownership of insight.
+
+TECHNICAL SKILLS
+- Languages/Query: SQL (advanced; window functions, CTEs, query optimization), Python
+- Data platform: Snowflake (virtual warehouses, micro-partitioning, clustering, QUALIFY)
+- ETL/Orchestration: config-driven incremental-sync framework, AWS S3, Scrum delivery
+- BI / Visualization: Tableau (executive dashboards, design-thinking, data storytelling)
+- GenAI / Agentic: multi-agent LLM systems, retrieval, structured extraction
+- Practices: data validation / QC frameworks, UAT, metric definition governance
+
+EXPERIENCE
+Data Engineer — Analytics & Data Team (Fortune 50 Pharmaceutical Client)   2021–Present
+- Built and owned a 31-step production forecasting pipeline running in a Scrum
+  cadence; it originally ran 6–8 hours as a full-refresh job.
+- Re-architected it from full-refresh to an incremental-sync framework (S3 →
+  Snowflake) across ~95 datasets, cutting runtime from 6–8 hours to ~1 hour
+  (a 6–8x improvement) while lowering compute cost.
+- Designed config-driven ingestion so new datasets are onboarded by configuration
+  rather than new code, enabling parallelization of low-risk work.
+- Engineered KPIs/metrics on patient, claims, shipments, returns, and finance data
+  feeding commercial reporting; defined metrics precisely to prevent misreads.
+- Built executive-ready Tableau dashboards that turned complex patient and
+  commercial datasets into clear narratives that informed senior-leadership strategy.
+- Served as the technical SME during UAT; on one occasion disagreed with a
+  stakeholder over a metric definition that would have misstated payer performance,
+  pulled the data both ways, and aligned the team on the corrected definition.
+- Authored reusable data-validation / QC checks after an early returns-data edge
+  case briefly produced a wrong downstream KPI; the framework has caught issues since.
+
+PROJECTS
+PolicyPrism — GenAI policy-extraction system
+- A 7-stage extraction pipeline that turns payer policy PDFs into structured,
+  auditable parameters on an "LLM extracts evidence / Python computes the rules"
+  principle, prioritizing explainability and auditability over black-box answers.
+
+Multi-Agent Equities Research System
+- A multi-agent GenAI system researching Indian equities (NSE / BSE), coordinating
+  specialized agents to produce research summaries.
+
+EDUCATION & CERTIFICATIONS
+- B.Tech, Computer Science (STEM; coursework in statistics, probability, algorithms)
+- University of Pennsylvania — FinTech foundations certificate
+
+NOTE: Reconstructed test fixture for the interview-prep generator, derived from the
+facts embedded in reference/golden-example.html. Not the candidate's original resume file.

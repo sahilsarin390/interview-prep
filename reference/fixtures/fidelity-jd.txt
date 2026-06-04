@@ -1,0 +1,36 @@
+Fidelity Investments
+Analyst, Data Analytics & Insights — Analytics, Research & Data (ARD)
+
+About the team
+The Analytics, Research & Data (ARD) organization is built to anticipate client
+needs and shape future client behavior through data, analytics, and AI. We partner
+across the business to enhance client experiences and to build AI-driven solutions
+that turn data into decisions.
+
+What you'll do
+- Translate ambiguous business questions into testable hypotheses and validate them
+  through analysis and experimentation.
+- Surface insights, opportunities, and risks, and address the "so what" and the
+  "what if" — not just report numbers.
+- Build compelling, executive-ready visualizations and tell impactful data stories
+  that drive decisions.
+- Translate findings into actionable recommendations and recommend decisive actions,
+  even under ambiguity and incomplete data.
+- Apply critical thinking and structured problem-solving to analytical investigations.
+- Partner cross-functionally with business, product, and technology stakeholders.
+
+What we're looking for
+- 3.5+ years of experience delivering measurable business impact through analytics.
+- A degree in Economics, Statistics, Finance, or a related quantitative field; an
+  MBA or MS is preferred.
+- Strong SQL; hands-on experience with Snowflake and Tableau.
+- Experience turning complex data into clear narratives for senior stakeholders.
+- Exposure to experimentation / hypothesis testing is a plus.
+- Interest in financial services and in applying AI responsibly.
+
+Our values
+We are Brave, Bold, and Curious, anchored on Integrity and Trust. We put the
+customer first in everything we do.
+
+NOTE: Reconstructed test fixture for the interview-prep generator, derived from the
+JD facts referenced throughout reference/golden-example.html. Not an official posting.
