@@ -8,6 +8,16 @@ type ResumeItem = { id: string; label: string; chars: number; is_active: number;
 type JdItem = { id: string; company: string | null; title: string | null; chars: number; created_at: string };
 type Tier = "fast" | "balanced" | "best";
 
+const STAGE_LABEL: Record<string, string> = {
+  starting: "Starting…",
+  jd_facts: "Reading the job description…",
+  resume_facts: "Extracting resume facts…",
+  research: "Researching the company & interview style…",
+  generate: "Writing the question bank…",
+  critic: "Critiquing & tightening answers…",
+  final: "Finishing up…",
+};
+
 export default function Home() {
   const router = useRouter();
   const [resumes, setResumes] = useState<ResumeItem[]>([]);
@@ -33,6 +43,7 @@ export default function Home() {
   const [tier, setTier] = useState<Tier>("fast");
   const [generating, setGenerating] = useState(false);
   const [genErr, setGenErr] = useState("");
+  const [genStage, setGenStage] = useState("");
 
   async function loadResumes() {
     const r = await fetch("/api/resumes");
@@ -120,6 +131,7 @@ export default function Home() {
     if (!selResume || !selJd) return;
     setGenErr("");
     setGenerating(true);
+    setGenStage("starting");
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
@@ -128,10 +140,29 @@ export default function Home() {
       });
       const d = await res.json();
       if (!res.ok) throw new Error(d.error ?? "Generation failed");
-      router.push(`/review/${d.runId}`);
+      const runId = d.runId as string;
+
+      // Poll the background job for progress (up to ~20 min).
+      for (let i = 0; i < 480; i++) {
+        await new Promise((r) => setTimeout(r, 2500));
+        let s: { state?: string; stage?: string; error?: string };
+        try {
+          s = await (await fetch(`/api/runs/${runId}/status`)).json();
+        } catch {
+          continue; // transient; keep polling
+        }
+        if (s.stage) setGenStage(s.stage);
+        if (s.state === "done") {
+          router.push(`/review/${runId}`);
+          return;
+        }
+        if (s.state === "error") throw new Error(s.error || "Generation failed");
+      }
+      throw new Error("Generation timed out. Try the 'fast' tier, or check the terminal logs.");
     } catch (e) {
       setGenErr(e instanceof Error ? e.message : String(e));
       setGenerating(false);
+      setGenStage("");
     }
   }
 
@@ -297,8 +328,8 @@ export default function Home() {
         {generating && (
           <div className="banner info">
             <span className="spinner" style={{ borderTopColor: "#8a6516", borderColor: "rgba(138,101,22,.3)" }} />
-            Running the pipeline (research → generate → critic). This can take a few minutes on
-            balanced/best — keep this tab open.
+            {STAGE_LABEL[genStage] ?? "Working…"} (research → generate → critic). This can take a few
+            minutes on balanced/best — you can keep this tab open; it runs in the background.
           </div>
         )}
         <div style={{ marginTop: 14 }}>

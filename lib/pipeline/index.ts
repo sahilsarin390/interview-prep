@@ -12,6 +12,7 @@ import {
   clearRun,
   clearStages,
   writeJsonStage,
+  writeRunStatus,
 } from "./runs";
 import {
   runCritic,
@@ -84,6 +85,8 @@ export async function runPipeline(opts: RunOptions): Promise<RunResult> {
   applyFresh(runId, fresh);
 
   const timingsMs: Record<string, number> = {};
+  const mark = (stage: string) =>
+    writeRunStatus(runId, { state: "running", stage, runId });
 
   // acquire ----------------------------------------------------------------
   const inputs = await cachedJson<PipelineInputs>(runId, "inputs", false, async () => ({
@@ -94,11 +97,13 @@ export async function runPipeline(opts: RunOptions): Promise<RunResult> {
   }));
 
   // prepare · JD facts -----------------------------------------------------
+  mark("jd_facts");
   const jdFacts = await timed(timingsMs, "jd_facts", () =>
     cachedJson<JdFacts>(runId, "jd_facts", false, () => runJdFacts(inputs.jd_text))
   );
 
   // prepare · resume facts -------------------------------------------------
+  mark("resume_facts");
   const resumeFacts = await timed(timingsMs, "resume_facts", () =>
     cachedJson<ResumeFacts>(runId, "resume_facts", false, () =>
       runResumeFacts(inputs.resume_text, inputs.jd_text)
@@ -106,11 +111,13 @@ export async function runPipeline(opts: RunOptions): Promise<RunResult> {
   );
 
   // prepare · research -----------------------------------------------------
+  mark("research");
   const research = await timed(timingsMs, "research", () =>
     cachedText(runId, "research", false, () => runResearch(jdFacts))
   );
 
   // process · generate -----------------------------------------------------
+  mark("generate");
   let droppedInGenerate: Array<{ index: number; reason: string }> = [];
   const draft = await timed(timingsMs, "generate", () =>
     cachedJson<QuestionBank>(runId, "draft", false, async () => {
@@ -125,6 +132,7 @@ export async function runPipeline(opts: RunOptions): Promise<RunResult> {
   );
 
   // process · critic -------------------------------------------------------
+  mark("critic");
   let droppedInCritic: Array<{ index: number; reason: string }> = [];
   const critique = await timed(timingsMs, "critic", () =>
     cachedJson<CritiqueResult>(runId, "critique", false, async () => {

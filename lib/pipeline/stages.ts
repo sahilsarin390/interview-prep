@@ -141,7 +141,7 @@ export async function runGenerate(args: {
       }),
       webSearch: false,
       json: true,
-      maxTokens: 16000,
+      maxTokens: 24000,
     },
     "array"
   );

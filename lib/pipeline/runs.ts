@@ -32,6 +32,17 @@ const FILE_FOR: Record<StageName, string> = {
   final: "final.json",
 };
 
+const STATUS_FILE = "status.json";
+
+export type RunStatus = {
+  state: "running" | "done" | "error";
+  stage: string;
+  runId: string;
+  questionCount?: number;
+  error?: string;
+  updatedAt: string;
+};
+
 export function runDir(id: string): string {
   return path.join(RUNS_ROOT, id);
 }
@@ -70,6 +81,30 @@ export function readTextStage(id: string, stage: StageName): string | null {
 export function writeTextStage(id: string, stage: StageName, text: string): void {
   ensureRunDir(id);
   fs.writeFileSync(stagePath(id, stage), text, "utf8");
+}
+
+export function writeRunStatus(
+  id: string,
+  status: Omit<RunStatus, "updatedAt">
+): void {
+  ensureRunDir(id);
+  const full: RunStatus = { ...status, updatedAt: new Date().toISOString() };
+  fs.writeFileSync(path.join(runDir(id), STATUS_FILE), JSON.stringify(full, null, 2), "utf8");
+}
+
+export function readRunStatus(id: string): RunStatus | null {
+  const p = path.join(runDir(id), STATUS_FILE);
+  if (!fs.existsSync(p)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8")) as RunStatus;
+  } catch {
+    return null;
+  }
+}
+
+/** Which stage artifacts already exist (for progress display). */
+export function listPresentStages(id: string): StageName[] {
+  return (Object.keys(FILE_FOR) as StageName[]).filter((s) => stageExists(id, s));
 }
 
 export function clearStages(id: string, stages: StageName[]): void {

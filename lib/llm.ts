@@ -19,6 +19,7 @@ export type LlmRequest = {
   json?: boolean; // ask for raw JSON output
   webSearch?: boolean; // enable the provider's web search tool
   maxTokens?: number;
+  timeoutMs?: number; // hard cap per attempt; aborts a stalled stream
 };
 
 export type LlmResponse = { text: string };
@@ -32,6 +33,7 @@ export type Tier = "fast" | "balanced" | "best";
 export type Provider = "anthropic" | "gemini";
 
 const DEFAULT_MAX_TOKENS = 8192;
+const DEFAULT_TIMEOUT_MS = 300_000; // 5 min per attempt — aborts a stalled call
 
 /** Retry transient provider errors (429 / 5xx / overloaded) with backoff. */
 async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
@@ -150,11 +152,13 @@ export class AnthropicAdapter implements LlmAdapter {
     // For large outputs the SDK refuses non-streaming calls (potential >10 min).
     // Stream those and accumulate the final message; small calls stay simple.
     const STREAM_THRESHOLD = 8192;
+    const timeoutMs = req.timeoutMs ?? DEFAULT_TIMEOUT_MS;
     const text = await withRetry(async () => {
+      const signal = AbortSignal.timeout(timeoutMs); // fresh per attempt
       const msg =
         maxTokens > STREAM_THRESHOLD
-          ? await client.messages.stream(params).finalMessage()
-          : await client.messages.create(params);
+          ? await client.messages.stream(params, { signal }).finalMessage()
+          : await client.messages.create(params, { signal });
       const blocks = msg.content as Array<{ type: string; text?: string }>;
       return blocks
         .filter((b) => b.type === "text")
@@ -193,20 +197,21 @@ export class GeminiAdapter implements LlmAdapter {
     // the parse stage.
     const useJsonMime = !!req.json && !req.webSearch;
 
-    const config: Record<string, unknown> = {
-      maxOutputTokens: req.maxTokens ?? DEFAULT_MAX_TOKENS,
-    };
-    if (req.system) config.systemInstruction = req.system;
-    if (useJsonMime) config.responseMimeType = "application/json";
-    if (req.webSearch) config.tools = [{ googleSearch: {} }];
-
-    const res = await withRetry(() =>
-      client.models.generateContent({
+    const timeoutMs = req.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+    const res = await withRetry(() => {
+      const config: Record<string, unknown> = {
+        maxOutputTokens: req.maxTokens ?? DEFAULT_MAX_TOKENS,
+        abortSignal: AbortSignal.timeout(timeoutMs), // fresh per attempt
+      };
+      if (req.system) config.systemInstruction = req.system;
+      if (useJsonMime) config.responseMimeType = "application/json";
+      if (req.webSearch) config.tools = [{ googleSearch: {} }];
+      return client.models.generateContent({
         model: this.model,
         contents: req.prompt,
         config,
-      })
-    );
+      });
+    });
 
     return { text: res.text ?? "" };
   }

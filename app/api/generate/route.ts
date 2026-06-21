@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { nanoid } from "nanoid";
 import { getJd, getResume } from "@/lib/repo";
 import { runPipeline, type FreshMode } from "@/lib/pipeline";
+import { writeRunStatus } from "@/lib/pipeline/runs";
 import type { Tier } from "@/lib/llm";
 
 export const runtime = "nodejs";
@@ -9,7 +11,13 @@ export const maxDuration = 600;
 
 const VALID_TIERS: Tier[] = ["fast", "balanced", "best"];
 
-/** POST /api/generate {resume_id, jd_id, tier?, fresh?} → runs the pipeline. */
+/**
+ * POST /api/generate {resume_id, jd_id, tier?, fresh?}
+ * Kicks the pipeline off as a BACKGROUND job and returns {runId} immediately.
+ * The client polls GET /api/runs/:runId/status for progress, then loads
+ * /review/:runId when state === "done". This avoids one giant blocking request
+ * (which previously hung the browser when generation took several minutes).
+ */
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -27,20 +35,36 @@ export async function POST(req: Request) {
       process.env.QUALITY_TIER = tier; // single-user localhost
     }
 
-    const result = await runPipeline({
+    const runId = nanoid();
+    writeRunStatus(runId, { state: "running", stage: "starting", runId });
+
+    // Fire and forget — the persistent Node server keeps the promise alive.
+    void runPipeline({
+      runId,
       resumeId,
       jdId,
       resumeText: resume.text,
       jdText: jd.text,
       fresh,
-    });
+    })
+      .then((result) =>
+        writeRunStatus(runId, {
+          state: "done",
+          stage: "final",
+          runId,
+          questionCount: result.questions.length,
+        })
+      )
+      .catch((err) =>
+        writeRunStatus(runId, {
+          state: "error",
+          stage: "failed",
+          runId,
+          error: err instanceof Error ? err.message : String(err),
+        })
+      );
 
-    return NextResponse.json({
-      runId: result.runId,
-      questionCount: result.questions.length,
-      meta: result.meta,
-      diagnostics: result.diagnostics,
-    });
+    return NextResponse.json({ runId }, { status: 202 });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: message }, { status: 500 });
