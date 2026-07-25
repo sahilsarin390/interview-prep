@@ -64,6 +64,25 @@ export function validateQuestion(x: unknown): { ok: Question } | { error: string
   };
 }
 
+/**
+ * Randomize each question's option order and remap `correct`, so the best
+ * answer isn't stuck in the same slot every time (LLMs strongly bias the
+ * correct answer toward one position — often "C"). Safe only because
+ * explanations reference option CONTENT, not letters (rubric item 8).
+ */
+export function balanceAnswerPositions(questions: Question[]): Question[] {
+  return questions.map((q) => {
+    const order = q.options.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    const options = order.map((i) => q.options[i]);
+    const correct = order.indexOf(q.correct);
+    return { ...q, options, correct };
+  });
+}
+
 /** Validate a whole bank, dropping+logging malformed items. */
 export function validateBank(items: unknown[]): ValidationResult {
   const questions: Question[] = [];

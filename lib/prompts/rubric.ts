@@ -17,4 +17,10 @@ export const RUBRIC = `QUALITY RUBRIC — every question must satisfy all of the
    the trap to avoid). Never generic ("be confident", "smile").
 6. BALANCE: spread questions across Culture Fit, Behavioral, Technical, Situational, Role Fit.
 7. MUST-HAVE: include at least one strong Role-Fit question addressing the candidate's biggest
-   apparent gap or career pivot relative to the JD.`;
+   apparent gap or career pivot relative to the JD.
+8. NO POSITIONAL TELLS: NEVER refer to an option by letter or position (no "option A", "A and D",
+   "the third choice", "the last one") in the explanation or delivery — the options are randomly
+   REORDERED before the candidate sees them, so any letter/position reference will be wrong.
+   Refer to a wrong option by paraphrasing its content (e.g., "the 'it's just slow' answer",
+   "the version that escalates immediately"). Also vary which option is correct; do not default
+   the best answer to the same slot every time.`;

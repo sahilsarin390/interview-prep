@@ -17,6 +17,10 @@ I will parse your output PROGRAMMATICALLY. Output ONLY a JSON object — no pros
 Verify GROUNDING hardest: if a draft answer references a fact not present in CANDIDATE FACTS,
 rewrite it to remove the fabrication.
 
+Also enforce rubric item 8: if any explanation or delivery note refers to an option by LETTER or
+POSITION (e.g. "option A", "A and D", "the third choice"), REWRITE it to reference that option's
+CONTENT instead — options are reordered before display, so letter/position references break.
+
 <RUBRIC>${RUBRIC}</RUBRIC>`;
 }
 

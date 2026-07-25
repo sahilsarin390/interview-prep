@@ -17,6 +17,10 @@ and tone of the WORKED EXAMPLE. Tailor every answer to the CANDIDATE FACTS and a
 JD FACTS and COMPANY RESEARCH. If company research is thin, use the web_search tool to find
 the company's real interview style and values before writing.
 
+Two hard rules (rubric item 8): (a) NEVER name an option by letter/position in the explanation or
+delivery — reference the option's content instead, because options are reordered before display;
+(b) do not always put the best answer in the same slot — vary the "correct" index across questions.
+
 <RUBRIC>${RUBRIC}</RUBRIC>
 <WORKED_EXAMPLE>${goldenBankJson}</WORKED_EXAMPLE>`;
 }

@@ -206,6 +206,10 @@ export class GeminiAdapter implements LlmAdapter {
       if (req.system) config.systemInstruction = req.system;
       if (useJsonMime) config.responseMimeType = "application/json";
       if (req.webSearch) config.tools = [{ googleSearch: {} }];
+      // Gemini 2.5 Flash's "thinking" counts against maxOutputTokens and can
+      // starve/truncate a large JSON body. For JSON requests, disable thinking
+      // so the whole budget goes to the parseable output.
+      if (req.json) config.thinkingConfig = { thinkingBudget: 0 };
       return client.models.generateContent({
         model: this.model,
         contents: req.prompt,

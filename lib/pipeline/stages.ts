@@ -6,7 +6,7 @@
  */
 import { modelFor, type LlmAdapter, type LlmRequest } from "../llm";
 import { goldenBankJson } from "../golden";
-import { parseJsonLoose, validateBank, validateQuestion } from "./json";
+import { balanceAnswerPositions, parseJsonLoose, validateBank, validateQuestion } from "./json";
 import type {
   CritiqueResult,
   JdFacts,
@@ -146,7 +146,7 @@ export async function runGenerate(args: {
     "array"
   );
   const { questions, dropped } = validateBank(arr);
-  return { bank: questions, dropped };
+  return { bank: balanceAnswerPositions(questions), dropped };
 }
 
 // ---------------------------------------------------------------------------
@@ -158,26 +158,40 @@ export async function runCritic(args: {
   draft: QuestionBank;
 }): Promise<{ critique: CritiqueResult; dropped: Array<{ index: number; reason: string }> }> {
   const adapter = modelFor("CRITIC");
-  const raw = await completeJson<{ questions?: unknown[]; log?: unknown }>(
-    adapter,
-    {
-      system: criticSystemPrompt(),
-      prompt: criticUserPrompt({
-        resumeFactsJson: JSON.stringify(args.resumeFacts, null, 2),
-        jdFactsJson: JSON.stringify(args.jdFacts, null, 2),
-        draftJson: JSON.stringify(args.draft, null, 2),
-      }),
-      json: true,
-      maxTokens: 32000,
-    },
-    "object"
-  );
+  let raw: { questions?: unknown[]; log?: unknown };
+  try {
+    raw = await completeJson<{ questions?: unknown[]; log?: unknown }>(
+      adapter,
+      {
+        system: criticSystemPrompt(),
+        prompt: criticUserPrompt({
+          resumeFactsJson: JSON.stringify(args.resumeFacts, null, 2),
+          jdFactsJson: JSON.stringify(args.jdFacts, null, 2),
+          draftJson: JSON.stringify(args.draft, null, 2),
+        }),
+        json: true,
+        maxTokens: 32000,
+      },
+      "object"
+    );
+  } catch (e) {
+    // Critic failed (e.g. truncated JSON). Non-fatal (§8: never crash): return
+    // an empty critique so the pipeline falls back to the validated draft bank.
+    const msg = e instanceof Error ? e.message : String(e);
+    return {
+      critique: {
+        questions: [],
+        log: [{ index: -1, issue: `critic unavailable (${msg.slice(0, 120)}); using draft`, action: "kept" }],
+      },
+      dropped: [],
+    };
+  }
   const items = Array.isArray(raw.questions) ? raw.questions : [];
   const { questions, dropped } = validateBank(items);
   const log = Array.isArray(raw.log)
     ? (raw.log as CritiqueResult["log"])
     : [];
-  return { critique: { questions, log }, dropped };
+  return { critique: { questions: balanceAnswerPositions(questions), log }, dropped };
 }
 
 // ---------------------------------------------------------------------------
@@ -211,5 +225,5 @@ export async function runRegenerateOne(args: {
     "object"
   );
   const res = validateQuestion(obj);
-  return "ok" in res ? res.ok : null;
+  return "ok" in res ? balanceAnswerPositions([res.ok])[0] : null;
 }
